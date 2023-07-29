@@ -17,4 +17,8 @@ router.get("/auth/login", authController.showLoginForm);
 router.post("/auth/login", authController.postLoginForm);
 
 
+// Topics
+router.get("/topics", topicController.getTopics)
+router.post("/topics", topicController.addTopic)
+
 export { router };

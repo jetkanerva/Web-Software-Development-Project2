@@ -1,29 +1,26 @@
+import * as topicService from "../../services/topicService.js";
 
 
-const getTopics = async({render}) => {
-    const data = {
-        topics: await topics.getAllTopics()
-    };
-    render('topics.ejs', data);
+const getTopics = async({ render, state }) => {
+    const user = await state.session.get('user');
+    console.log(user)
+    const id = user.id;
+    const isAdmin = user.isAdmin;
+    const topics = await topicService.getAllTopics(id);
+    console.log(topics)
+    render('topics.eta', { topics: topics, isAdmin: isAdmin });
 };
 
-const getTopicById = async({params, render}) => {
-    const data = {
-        topic: await topics.getTopicById(params.id),
-        questions: await questions.getQuestionsByTopicId(params.id)
-    };
-    render('topic.ejs', data);
-};
-
-const postTopic = async({request, response, session}) => {
-    const user = await session.get('user');
+const addTopic = async({ request, response, state }) => {
+    const user = await state.session.get('user');
     if (user && user.isAdmin) {
         const body = request.body();
-        const params = await body.value;
+        const data = await body.value;
 
-        const name = params.get('name');
-        await topics.createTopic(name);
+        const name = data.get('name');
+        await topicService.createTopic(name, user.id);
 
+        response.status = 303;
         response.redirect('/topics');
     } else {
         response.redirect('/auth/login');
@@ -40,4 +37,4 @@ const deleteTopic = async({params, response, session}) => {
     }
 };
 
-export { getTopics, getTopicById, postTopic, deleteTopic };
+export { getTopics, addTopic, deleteTopic };

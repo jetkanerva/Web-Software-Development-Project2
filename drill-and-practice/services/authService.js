@@ -8,4 +8,12 @@ const addUser = async (email, passwordHash) => {
     await sql`INSERT INTO users (email, password) VALUES (${ email }, ${ passwordHash })`;
 };
 
-export { addUser, findUsersWithEmail };
+const isAdmin = async(userId) => {
+    const user = await sql`SELECT * FROM users WHERE id = ${userId}`;
+    if (!user) {
+        return false;
+    }
+    return user[0].admin;
+};
+
+export { addUser, findUsersWithEmail, isAdmin };

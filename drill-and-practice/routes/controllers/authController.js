@@ -6,7 +6,7 @@ const showLoginForm = async ({ render}) => {
 };
 
 const showRegistrationForm = ({ render }) => {
-    render("register.eta");
+    render("register.eta", { email: ""});
 };
 
 const postLoginForm = async ({ request, response, state, render }) => {
@@ -34,30 +34,36 @@ const postLoginForm = async ({ request, response, state, render }) => {
         return;
     }
 
+    const isAdmin = await authService.isAdmin(userObj.id);
+    console.log(isAdmin);
+
     await state.session.set("authenticated", true);
     await state.session.set("user", {
         id: userObj.id,
         email: userObj.email,
+        isAdmin: isAdmin,
     });
     response.redirect("/topics");
 };
 
-const postRegistrationForm = async ({ request, response }) => {
+const postRegistrationForm = async ({ request, response, render }) => {
     const body = request.body();
     const params = await body.value;
 
     const email = params.get("email");
     const password = params.get("password");
-    const verification = params.get("verification");
-
-    if (password !== verification) {
-        response.body = "The entered passwords did not match";
-        return;
-    }
 
     const existingUsers = await authService.findUsersWithEmail(email);
     if (existingUsers.length > 0) {
         response.body = "The email is already reserved.";
+        return;
+    }
+
+    console.log(password.length)
+
+    if (password.length < 4) {
+        const errorMessage = "Password must be at least 4 characters long";
+        render("register.eta", { errorMessage: errorMessage, email });
         return;
     }
 

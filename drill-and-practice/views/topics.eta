@@ -1,0 +1,15 @@
+<h1>Topics</h1>
+<ul>
+<% for(let topic of it.topics) { %>
+    <li><%= topic.name %></li>
+<% } %>
+</ul>
+
+<% if (it.isAdmin) { %>
+<h2>Add New Topic</h2>
+<form method="POST" action="/topics">
+    Title:<br/>
+    <input type="text" name="name" />
+    <input type="submit" value="Submit!" />
+</form>
+<% } %>
