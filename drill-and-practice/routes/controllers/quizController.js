@@ -1,4 +1,4 @@
-import { topics, questions, quiz } from "../../deps.js";
+
 
 const getQuizTopics = async({render}) => {
     const data = {

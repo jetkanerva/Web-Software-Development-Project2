@@ -10,37 +10,11 @@ const router = new Router();
 // Main Page
 router.get("/", mainController.showMain);
 
-// Topics
-router.get("/topics", topicController.showTopicsList);
-router.post("/topics", topicController.createTopic);
-router.post("/topics/:id/delete", topicController.deleteTopic);
-
-// Topic Questions
-router.get("/topics/:id", topicController.showTopicQuestions);
-router.post("/topics/:id/questions", topicController.createQuestion);
-router.post("/topics/:id/questions/:qId/delete", topicController.deleteQuestion);
-
-// Topic Question Options
-router.get("/topics/:id/questions/:qId", topicController.showQuestionOptions);
-router.post("/topics/:id/questions/:qId/options", topicController.addOption);
-router.post("/topics/:id/questions/:qId/options/:oId/delete", topicController.deleteOption);
-
 // Authentication
-router.get("/auth/register", authController.registerForm);
-router.post("/auth/register", authController.registerUser);
-router.get("/auth/login", authController.loginForm);
-router.post("/auth/login", authController.loginUser);
+router.get("/auth/register", authController.showRegistrationForm);
+router.post("/auth/register", authController.postRegistrationForm);
+router.get("/auth/login", authController.showLoginForm);
+router.post("/auth/login", authController.postLoginForm);
 
-// Quiz
-router.get("/quiz", quizController.getQuizTopics);
-router.get("/quiz/:tId", quizController.getQuizQuestion);
-router.get("/quiz/:tId/questions/:qId", quizController.getQuizResult);
-router.post("/quiz/:tId/questions/:qId/options/:oId", quizController.postQuizAnswer);
-router.get("/quiz/:tId/questions/:qId/correct", quizController.showCorrect);
-router.get("/quiz/:tId/questions/:qId/incorrect", quizController.showIncorrect);
-
-// API
-router.get("/api/questions/random", apiController.getRandomQuestion);
-router.post("/api/questions/answer", apiController.answerQuestion);
 
 export { router };

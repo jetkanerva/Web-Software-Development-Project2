@@ -1,8 +1,7 @@
-import { topics, questions, quiz } from "../../deps.js";
+
 
 const getAllTopics = async({response}) => {
-    const data = await topics.getAllTopics();
-    response.body = data;
+    response.body = await topics.getAllTopics();
 };
 
 const getQuestionByTopic = async({params, response}) => {

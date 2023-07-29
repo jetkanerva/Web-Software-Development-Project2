@@ -1,73 +1,69 @@
-import { bcrypt, validate, users } from "../../deps.js";
+import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
+import * as authService from "../../services/authService.js";
 
-const loginForm = () => {
-    return {
-        email: "",
-        password: ""
-    };
+const showLoginForm = async ({ render}) => {
+    render("login.eta");
 };
 
-const registerForm = () => {
-    return {
-        email: "",
-        password: ""
-    };
+const showRegistrationForm = ({ render }) => {
+    render("register.eta");
 };
 
-const loginUser = async({request, response, session}) => {
+const postLoginForm = async ({ request, response, state, render }) => {
     const body = request.body();
     const params = await body.value;
 
-    const email = params.get('email');
-    const password = params.get('password');
+    const email = params.get("email");
+    const password = params.get("password");
 
-    const user = await users.findUserByEmail(email);
-    if (user) {
-        const hash = user.password;
-        const passwordCorrect = await bcrypt.compare(password, hash);
-        if (passwordCorrect) {
-            await session.set('authenticated', true);
-            await session.set('user', {
-                id: user.id,
-                email: user.email
-            });
-            response.redirect('/topics');
-        } else {
-            response.redirect('/auth/login');
-        }
-    } else {
-        response.redirect('/auth/login');
+    const existingUsers = await authService.findUsersWithEmail(email);
+    if (existingUsers.length === 0) {
+        response.status = 401;
+        return;
     }
+
+    const userObj = existingUsers[0];
+
+    const hash = userObj.password;
+
+    const passwordCorrect = await bcrypt.compare(password, hash);
+    if (!passwordCorrect) {
+        console.log("invalid password posted")
+        const errorMessage = "Invalid credentials";
+        render("login.eta", { errorMessage: errorMessage });
+        return;
+    }
+
+    await state.session.set("authenticated", true);
+    await state.session.set("user", {
+        id: userObj.id,
+        email: userObj.email,
+    });
+    response.redirect("/topics");
 };
 
-const registerUser = async({request, response}) => {
+const postRegistrationForm = async ({ request, response }) => {
     const body = request.body();
     const params = await body.value;
 
-    const email = params.get('email');
-    const password = params.get('password');
+    const email = params.get("email");
+    const password = params.get("password");
+    const verification = params.get("verification");
 
-    const validationErrors = validate({ email, password });
-    if (validationErrors.length > 0) {
-        // handle validation errors
+    if (password !== verification) {
+        response.body = "The entered passwords did not match";
         return;
     }
 
-    const existingUser = await users.findUserByEmail(email);
-    if (existingUser === undefined) {
-        const hash = await bcrypt.hash(password);
-        await users.addUser(email, hash);
-        response.redirect('/auth/login');
-    } else {
-        // User with this email already exists
+    const existingUsers = await authService.findUsersWithEmail(email);
+    if (existingUsers.length > 0) {
+        response.body = "The email is already reserved.";
         return;
     }
+
+    const hash = await bcrypt.hash(password);
+    await authService.addUser(email, hash);
+    response.redirect("/auth/login");
 };
 
-const logoutUser = async({response, session}) => {
-    await session.set('authenticated', false);
-    await session.set('user', null);
-    response.redirect('/');
-};
-
-export { loginUser, registerUser, logoutUser, loginForm, registerForm };
+export { postLoginForm, postRegistrationForm, showLoginForm, showRegistrationForm };
