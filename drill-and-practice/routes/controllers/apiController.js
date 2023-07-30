@@ -27,7 +27,7 @@ const isOptionCorrect = async({ request, response }) => {
     const isCorrect = await apiService.isCorrectAnswer(optionId);
 
     console.log(isCorrect);
-    response.status({ correct: isCorrect });
+    response.body = { correct: isCorrect };
 };
 
 export { getQuestion, isOptionCorrect };
