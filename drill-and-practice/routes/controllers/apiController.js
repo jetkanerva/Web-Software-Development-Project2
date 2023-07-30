@@ -19,4 +19,15 @@ const getQuestion = async({ response }) => {
     }
 };
 
-export { getQuestion };
+const isOptionCorrect = async({ request, response }) => {
+    const body = request.body();
+    const data = await body.value;
+    const optionId= data.optionId;
+
+    const isCorrect = await apiService.isCorrectAnswer(optionId);
+
+    console.log(isCorrect);
+    response.status({ correct: isCorrect });
+};
+
+export { getQuestion, isOptionCorrect };

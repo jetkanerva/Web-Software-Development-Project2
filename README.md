@@ -18,7 +18,7 @@ To run tests open root directory of this project and write
 
 #### Styling
 
-* The navbar has been styled classically using CSS - the css file can be found other static folder
+* The navbar has been styled classically using CSS - the css file can be found other static folder (to prove that I can write CSS)
 * Other parts of this application utilize tailwind for styling
 
 #### App logic

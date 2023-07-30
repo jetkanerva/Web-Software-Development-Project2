@@ -18,4 +18,9 @@ const getRandomQuestion = async () => {
     }
 };
 
-export { getRandomQuestion };
+const isCorrectAnswer = async (optionId) => {
+    const correctOption = await sql`SELECT * FROM question_answer_options WHERE id = ${optionId} AND is_correct = true`;
+    return correctOption.length > 0;
+};
+
+export { getRandomQuestion, isCorrectAnswer };
