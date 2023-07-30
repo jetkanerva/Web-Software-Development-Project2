@@ -6,6 +6,8 @@ details (e.g. name or student number).
 Remember to include the address of the online location where your project is
 running as it is a key part of the submission.
 
+`deno test --allow-net --allow-env --allow-read tests.js`
+
 
 ### Functionality
 
@@ -91,14 +93,14 @@ Asking questions
 * If there are no questions for the topic, the user is informed that there are no questions so far for the topic.
 
 * ~~When making a GET request to the path at /quiz/:tId/questions/:qId, where :qId refers to the database id of a specific question, the user is shown the question text and the answer options.~~
-* Each answer option has a button with text "Choose". Clicking on the button makes a POST request to the path /quiz/:tId/questions/:qId/options/:oId,
-* where :qId is the database identifier of the question and :oId is the id of the selected answer option.
-* When a POST request is made to the path /quiz/:tId/questions/:qId/options/:oId, the question answer with the identifier of the user is stored to the database.
-* Then, if the chosen answer option was correct, the user is redirected to /quiz/:tId/questions/:qId/correct where the user is shown a page with the text "Correct!".
-* The page also has a link with the text "Next question" that moves the user to the path /quiz/:tId. On the other hand,
-* if the chosen answer option was incorrect, the user is redirected to /quiz/:tId/questions/:qId/incorrect where the user is shown a page with the text "Incorrect!".
+* ~~Each answer option has a button with text "Choose". Clicking on the button makes a POST request to the path /quiz/:tId/questions/:qId/options/:oId,~~
+* ~~where :qId is the database identifier of the question and :oId is the id of the selected answer option.~~
+* ~~When a POST request is made to the path /quiz/:tId/questions/:qId/options/:oId, the question answer with the identifier of the user is stored to the database.~~
+* ~~Then, if the chosen answer option was correct, the user is redirected to /quiz/:tId/questions/:qId/correct where the user is shown a page with the text "Correct!".~~
+* ~~The page also has a link with the text "Next question" that moves the user to the path /quiz/:tId. On the other hand,~~
+* ~~if the chosen answer option was incorrect, the user is redirected to /quiz/:tId/questions/:qId/incorrect where the user is shown a page with the text "Incorrect!".~~
 * The page also has the text for the correct answer option, e.g. stating that "The correct option was option text", where option text is the text for the correct option.
-* The page also has a link with the text "Next question" that moves the user to the path /quiz/:tId.
+* ~~The page also has a link with the text "Next question" that moves the user to the path /quiz/:tId.~~
 
 
 Main page
