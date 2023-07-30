@@ -73,19 +73,11 @@ const getQuestionById = async({params, render, response, state}) => {
     render('question.eta', { question: question, options: options, option_text: option_text, topic_id: topicId });
 };
 
-const getQuizTopics = async({render}) => {
-    const data = {
-        topics: await topics.getAllTopics()
-    };
-    render('quizTopics.ejs', data);
+const deleteQuestionById = async({ response, params }) => {
+    await questionService.deleteQuestionById(params.qId);
+
+    response.status = 303;
+    response.redirect(`/topics/${params.tId}`);
 };
 
-const getQuizResult = async({params, render}) => {
-    const data = {
-        result: params.result,
-        correctOption: params.result === 'incorrect' ? await quiz.getCorrectOption(params.qId) : null
-    };
-    render('quizResult.ejs', data);
-};
-
-export { getTopicById, addQuestion, getQuizTopics, getQuestionById, getQuizResult };
+export { getTopicById, addQuestion, getQuestionById, deleteQuestionById };

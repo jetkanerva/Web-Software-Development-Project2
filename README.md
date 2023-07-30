@@ -61,12 +61,43 @@ Creating and listing questions for a topic
 Viewing a question and adding answer options
 
 * ~~The page at /topics/:id/questions/:qId shows the question text for the question with database id :qId.~~
-* The page at /topics/:id/questions/:qId shows also a form that can be used to add an answer option.
-* The form includes a textarea for option text (textarea name must be option_text) and a checkbox for correctness (input with type checkbox, name must be is_correct).
-* The form is submitted using a POST request to the path /topics/:id/questions/:qId/options, where :id refers to the topic and :qId refers to the question for which the answer option is being added to.
-When an answer option is being added, the content is validated. The option_text must contain at least one character. If validation of the submitted answer option fails, the page shows validation errors and the entered data is populated to the form fields.
-If the validation does not fail, the answer option is stored to the database, and the user is redirected to /topics/:id/questions/:qId. Note! When checking whether a checkbox was selected or not, check whether the particular name (in this case is_correct) is in the request body.
-In addition to the question text and the form for adding answer options, the page at /topics/:id/questions/:qId also lists answer options for the question with database id :qId. For each answer option, option text and correctness of the
+* ~~The page at /topics/:id/questions/:qId shows also a form that can be used to add an answer option.~~
+* ~~The form includes a textarea for option text (textarea name must be option_text) and a checkbox for correctness (input with type checkbox, name must be is_correct).~~
+* ~~The form is submitted using a POST request to the path /topics/:id/questions/:qId/options, where :id refers to the topic and :qId refers to the question for which the answer option is being added to.~~
+* ~~When an answer option is being added, the content is validated. The option_text must contain at least one character. If validation of the submitted answer option fails, the page shows validation errors and the entered data is populated to the form fields.~~
+* ~~If the validation does not fail, the answer option is stored to the database, and the user is redirected to /topics/:id/questions/:qId.~~
+* ~~Note! When checking whether a checkbox was selected or not, check whether the particular name (in this case is_correct) is in the request body.~~
+* ~~In addition to the question text and the form for adding answer options, the page at /topics/:id/questions/:qId also lists answer options for the question with database id :qId.~~
+* ~~For each answer option, option text and correctness of the option is shown.~~
+
+Removing answer options and questions
+
+* ~~For each answer option listed at /topics/:tId/questions/:qId~~
+* ~~the page also shows a button with the text "Delete option" that is used to remove the specific answer option.~~
+* ~~Clicking the button makes a POST request to the path /topics/:tId/questions/:qId/options/:oId/delete,~~ 
+* ~~where :qId is the database id of the question and :oId is the database id of the answer option, which leads to the answer option being removed from the database.~~ 
+* ~~Removing the answer option redirects the user to /topics/:tId/questions/:qId.~~ ~~Note! If there are question answers, the question answers for the specific answer option are also removed.~~
+* ~~If there are no answer options, the page at /topics/:tId/questions/:qId shows a button with the text "Delete question".~~ 
+* ~~Clicking the button makes a POST request to the path /topics/:tId/questions/:qId/delete, where :qId is the database id of the question, which leads to the question being deleted.~~ 
+* ~~Deleting the question redirects the user to /topics/:tId.~~
+* ~~Any authenticated user can remove answer options and questions.~~
+
+Asking questions
+
+* ~~When making a GET request to the path at /quiz, the user is shown the list of topics currently available in the database sorted alphabetically.~~ 
+* Each item in the list is a link, which links the user to /quiz/:tId, where :tId corresponds to the database id of the topic that the user selected.
+* When accessing /quiz/:tId, a random question for the topic identified with tId is chosen from the database, and the user is redirected to /quiz/:tId/questions/:qId,
+* where :qId refers to the database id of the randomly chosen question. The random question is chosen from all questions for the topic.
+* If there are no questions for the topic, the user is informed that there are no questions so far for the topic.
+* When making a GET request to the path at /quiz/:tId/questions/:qId, where :qId refers to the database id of a specific question, the user is shown the question text and the answer options.
+* Each answer option has a button with text "Choose". Clicking on the button makes a POST request to the path /quiz/:tId/questions/:qId/options/:oId,
+* where :qId is the database identifier of the question and :oId is the id of the selected answer option.
+* When a POST request is made to the path /quiz/:tId/questions/:qId/options/:oId, the question answer with the identifier of the user is stored to the database.
+* Then, if the chosen answer option was correct, the user is redirected to /quiz/:tId/questions/:qId/correct where the user is shown a page with the text "Correct!".
+* The page also has a link with the text "Next question" that moves the user to the path /quiz/:tId. On the other hand,
+* if the chosen answer option was incorrect, the user is redirected to /quiz/:tId/questions/:qId/incorrect where the user is shown a page with the text "Incorrect!".
+* The page also has the text for the correct answer option, e.g. stating that "The correct option was option text", where option text is the text for the correct option.
+* The page also has a link with the text "Next question" that moves the user to the path /quiz/:tId.
 
 
 Main page

@@ -1,0 +1,8 @@
+<h1>Choose a topic for Quiz</h1>
+<ul>
+    <% for(let topic of it.topics) { %>
+        <li>
+            <a href="/quiz/<%= topic.id %>"><%= topic.name %></a>
+        </li>
+    <% } %>
+</ul>
