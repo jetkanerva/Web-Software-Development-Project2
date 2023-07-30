@@ -4,36 +4,48 @@ import * as topicService from "../../services/topicService.js";
 const getTopics = async({ render, state }) => {
     const user = await state.session.get('user');
     console.log(user)
-    const id = user.id;
     const isAdmin = user.isAdmin;
-    const topics = await topicService.getAllTopics(id);
+    const topics = await topicService.getAllTopics();
     console.log(topics)
     render('topics.eta', { topics: topics, isAdmin: isAdmin });
 };
 
-const addTopic = async({ request, response, state }) => {
+const addTopic = async({ request, response, state, render }) => {
     const user = await state.session.get('user');
-    if (user && user.isAdmin) {
+    const isAdmin = user.isAdmin
+    if (user && isAdmin) {
         const body = request.body();
         const data = await body.value;
 
         const name = data.get('name');
+
+        if (name.length < 1) {
+            const topics = await topicService.getAllTopics();
+            const errorMessage = "Name of the topic must be at least 1 character long!"
+            render('topics.eta', { topics: topics, isAdmin: isAdmin, errorMessage: errorMessage });
+            return;
+        }
+
         await topicService.createTopic(name, user.id);
 
         response.status = 303;
         response.redirect('/topics');
     } else {
-        response.redirect('/auth/login');
+        response.status = 303;
+        response.redirect('/topics');
     }
 };
 
-const deleteTopic = async({params, response, session}) => {
-    const user = await session.get('user');
+const deleteTopic = async({ params, response, state }) => {
+    const user = await state.session.get('user');
+    console.log(user);
     if (user && user.isAdmin) {
-        await topics.deleteTopic(params.id);
+        await topicService.deleteTopic(params.id);
+        response.status = 303;
         response.redirect('/topics');
     } else {
-        response.redirect('/auth/login');
+        response.status = 303;
+        response.redirect('/topics');
     }
 };
 

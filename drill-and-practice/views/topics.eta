@@ -1,7 +1,7 @@
 <h1>Topics</h1>
 <ul>
 <% for(let topic of it.topics) { %>
-    <li><%= topic.name %></li>
+    <li><a href="/topics/<%= topic.id %>"><%= topic.name %></a> <% if (it.isAdmin) { %> <form method="POST" action="/topics/<%= topic.id %>/delete"><input type="submit" value="Delete"></form> <% } %></li>
 <% } %>
 </ul>
 
@@ -12,4 +12,7 @@
     <input type="text" name="name" />
     <input type="submit" value="Submit!" />
 </form>
+<% if (it.errorMessage) { %>
+  <p style="color: red;"><%= it.errorMessage %></p>
+<% } %>
 <% } %>
