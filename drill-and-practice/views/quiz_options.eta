@@ -1,11 +1,11 @@
 <h1><%= it.question.question_text %></h1>
 <ul>
-<% if (it.quizzes.options && it.quizzes.options.length > 0) { %>
-    <% for(let option of it.quizzes.options) { %>
+<% if (it.quizzes && it.quizzes.length > 0) { %>
+    <% for(let quiz of it.quizzes) { %>
         <li>
-            <%= option.option_text %>
-            <form method="POST" action="/quiz/<%= it.quizzes.topic_id %>/questions/<%= it.quizzes.id %>/options/<%= option.id %>">
-                <input type="submit" value="Choose">
+            <%= quiz.option_text %>
+            <form method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= quiz.id %>/options/<%= quiz.id %>">
+                  <input type="submit" value="Choose">
             </form>
         </li>
     <% } %>

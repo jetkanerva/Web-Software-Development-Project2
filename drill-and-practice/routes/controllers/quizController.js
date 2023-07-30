@@ -16,7 +16,7 @@ const getQuizzes = async({ render, state, response }) => {
 };
 
 const getQuizzesByTopic = async({ params, render, state, response }) => {
-    console.log("getQuizzesById");
+    console.log("getQuizzesByTopic");
 
     if (!state.session.get("authenticated")) {
         response.status = 303;
@@ -58,4 +58,48 @@ const getQuizzesByQuestion = async({ params, render, state, response }) => {
     render('quiz_options.eta', {quizzes: quizzes, question: question});
 };
 
-export { getQuizzes, getQuizzesByTopic, getQuizzesByQuestion };
+const isOptionCorrect = async({ params, state, response }) => {
+    console.log("isOptionCorrect")
+    if (!state.session.get("authenticated")) {
+        response.status = 303;
+        response.redirect(`/auth/login`);
+        return;
+    }
+
+    const topicId = params.tId;
+    const questionId = params.qId
+    const optionId = params.oId;
+
+    const isCorrect = await quizService.isOptionCorrect(optionId);
+    console.log(isCorrect);
+
+    if (isCorrect) {
+        response.status = 303;
+        response.redirect(`/quiz/${topicId}/questions/${questionId}/correct`);
+    } else {
+        response.status = 303;
+        response.redirect(`/quiz/${topicId}/questions/${questionId}/incorrect`);
+    }
+};
+
+const showCorrect = async({ render, state, response }) => {
+    if (!state.session.get("authenticated")) {
+        response.status = 303;
+        response.redirect(`/auth/login`);
+        return;
+    }
+
+    render('correct.eta');
+};
+
+const showIncorrect = async({ render, state, response }) => {
+    if (!state.session.get("authenticated")) {
+        response.status = 303;
+        response.redirect(`/auth/login`);
+        return;
+    }
+
+    render('incorrect.eta');
+};
+
+export { getQuizzes, getQuizzesByTopic, getQuizzesByQuestion, isOptionCorrect, showCorrect, showIncorrect };

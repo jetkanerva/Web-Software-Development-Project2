@@ -1,18 +1,23 @@
-<h1>Topics</h1>
-<ul>
-<% for(let topic of it.topics) { %>
-    <li><a href="/topics/<%= topic.id %>"><%= topic.name %></a> <% if (it.isAdmin) { %> <form method="POST" action="/topics/<%= topic.id %>/delete"><input type="submit" value="Delete"></form> <% } %></li>
-<% } %>
-</ul>
+<% layout('./layouts/layout.eta') %>
+<div class="px-8 pt-8 flex flex-col">
+    <h1 class="text-4xl mb-6">Topics</h1>
+    <ul class="grid grid-cols-2 gap-4 flex-grow">
+    <% for(let topic of it.topics) { %>
+        <li class="border p-4 rounded shadow mb-4"><a class="text-blue-500 hover:text-blue-700 transition-colors" href="/topics/<%= topic.id %>"><%= topic.name %></a> <% if (it.isAdmin) { %> <form method="POST" action="/topics/<%= topic.id %>/delete"><input class="mt-2 bg-red-500 text-white py-1 px-4 rounded hover:bg-red-700 transition-colors" type="submit" value="Delete"></form> <% } %></li>
+    <% } %>
+    </ul>
 
-<% if (it.isAdmin) { %>
-<h2>Add New Topic</h2>
-<form method="POST" action="/topics">
-    Title:<br/>
-    <input type="text" name="name" />
-    <input type="submit" value="Submit!" />
-</form>
-<% if (it.errorMessage) { %>
-  <p style="color: red;"><%= it.errorMessage %></p>
-<% } %>
-<% } %>
+    <% if (it.isAdmin) { %>
+    <div class="pt-16">
+        <h2 class="text-3xl mb-4">Add New Topic</h2>
+        <form method="POST" action="/topics">
+            Title:<br/>
+            <input class="border p-2 mb-4 rounded" type="text" name="name" />
+            <input class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors" type="submit" value="Submit!" />
+        </form>
+        <% if (it.errorMessage) { %>
+          <p class="text-red-500"><%= it.errorMessage %></p>
+        <% } %>
+    </div>
+    <% } %>
+</div>

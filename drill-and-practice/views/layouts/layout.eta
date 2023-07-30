@@ -1,1 +1,20 @@
-<%~ it.body %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project2 - Quiz service</title>
+    <link rel="stylesheet" type="text/css" href="/static/navbar.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-full m-0 p-0 flex flex-col">
+    <nav class="h-auto">
+        <ul>
+            <li><a href="/">Statistics</a></li>
+            <li><a href="/topics">topics</a></li>
+            <li><a href="/quiz">quiz</a></li>
+        </ul>
+    </nav>
+    <div class="flex-grow">
+      <%~ it.body %>
+    </div>
+</body>
+</html>

@@ -8,4 +8,9 @@ const getQuizzesByQuestion = async (questionId) => {
     return await sql`SELECT * FROM question_answer_options WHERE question_id = ${questionId}`;
 };
 
-export { getQuizzesByTopic, getQuizzesByQuestion }
+const isOptionCorrect = async (optionId) => {
+    const option = await sql`SELECT is_correct FROM question_answer_options WHERE id = ${optionId}`;
+    return option[0].is_correct;
+};
+
+export { getQuizzesByTopic, getQuizzesByQuestion, isOptionCorrect }

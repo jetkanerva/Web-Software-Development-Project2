@@ -1,12 +1,18 @@
-<h1>Register!</h1>
-<% if (it.errorMessage) { %>
-  <p style="color: red;"><%= it.errorMessage %></p>
-<% } %>
-<form method="POST" action="/auth/register">
-  Email:<br/>
-  <input type="email" name="email" value="<%= it.email %>"/><br/>
-  Password:<br/>
-  <input type="password" name="password" /><br/>
-  <input type="submit" value="Submit!" />
-</form>
-<p>Already registered? <a href="/auth/login">Login here!</a></p>
+<head>
+    <title>Project2 - Quiz service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<div class="px-8 pt-8 flex flex-col items-center justify-center h-full">
+    <h1 class="text-4xl mb-6">Register!</h1>
+    <% if (it.errorMessage) { %>
+        <p class="text-red-500"><%= it.errorMessage %></p>
+    <% } %>
+    <form class="flex flex-col max-w-md mx-auto" method="POST" action="/auth/register">
+        <label for="email" class="mb-2">Email:</label>
+        <input class="border p-2 mb-4 rounded" type="email" name="email" value="<%= it.email %>" />
+        <label for="password" class="mb-2">Password:</label>
+        <input class="border p-2 mb-4 rounded" type="password" name="password" />
+        <input class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors" type="submit" value="Submit!" />
+    </form>
+    <p class="pt-4 text-center">Already registered? <a class="text-blue-500 hover:text-blue-700 transition-colors" href="/auth/login">Login here!</a></p>
+</div>
