@@ -42,6 +42,6 @@ router.get("/quiz/:tId/questions/:qId/correct", quizController.showCorrect)
 router.get("/quiz/:tId/questions/:qId/incorrect", quizController.showIncorrect)
 
 // API
-router.get("/api/questions/random", apiController)
+router.get("/api/questions/random", apiController.getQuestion)
 
 export { router };

@@ -102,6 +102,7 @@ const showIncorrect = async({ render, state, response, params }) => {
     }
     const topic_id = params.tId;
     const questionId = params.qId;
+    console.log(questionId)
     const correct_answer = await quizService.correctAnswer(questionId);
     console.log(correct_answer);
 

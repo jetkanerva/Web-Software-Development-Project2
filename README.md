@@ -1,15 +1,33 @@
-# Project 2: XXX
+# Project 2:
 
-Write the documentation of your project here. Do not include your personal
-details (e.g. name or student number).
+#### Deployment online
 
-Remember to include the address of the online location where your project is
-running as it is a key part of the submission.
+This application has been deployed online at domain: https://project2-4u5l.onrender.com
 
-`deno test --allow-net --allow-env --allow-read tests.js`
+#### Local deployment
 
+To deploy this application locally open root directory of this project and write
 
-### Functionality
+* `docker-compose up`
+
+#### Unit testing
+
+To run tests open root directory of this project and write
+
+* `docker-compose run --entrypoint=npx e2e-playwright playwright test`
+
+#### Styling
+
+* The navbar has been styled classically using CSS - the css file can be found other static folder
+* Other parts of this application utilize tailwind for styling
+
+#### App logic
+* Main application logic is found in: app.js
+* ./routes directory handles all API requests
+* ./routes/routes.js uses DENO router to invoke functions
+* deps.js includes all application dependencies
+
+### Functionality - this was created to ensure application includes all functionality
 
 Login functionality
 
@@ -98,14 +116,38 @@ Asking questions
 * ~~Then, if the chosen answer option was correct, the user is redirected to /quiz/:tId/questions/:qId/correct where the user is shown a page with the text "Correct!".~~
 * ~~The page also has a link with the text "Next question" that moves the user to the path /quiz/:tId. On the other hand,~~
 * ~~if the chosen answer option was incorrect, the user is redirected to /quiz/:tId/questions/:qId/incorrect where the user is shown a page with the text "Incorrect!".~~
-* The page also has the text for the correct answer option, e.g. stating that "The correct option was option text", where option text is the text for the correct option.
+* ~~The page also has the text for the correct answer option, e.g. stating that "The correct option was option text", where option text is the text for the correct option.~~
 * ~~The page also has a link with the text "Next question" that moves the user to the path /quiz/:tId.~~
 
 
 Main page
 
 ~~* The main page of the application is available at the root path /.~~
-* The main page contains a brief description of the application, application statistics, and links for registration and login.
-* The application statistics show the total number of topics, questions, and question answers (i.e. answers from users).
+* ~~The main page contains a brief description of the application, application statistics, and links for registration and login.~~
+* ~~The application statistics show the total number of topics, questions, and question answers (i.e. answers from users).~~
+
+API
+
+~~The application provides an API that allows asking for a random question and for answering the random question. The API does not record the answers to the database.
+GET requests made to the path /api/questions/random return a randomly selected question as an JSON document. The document has attributes questionId, questionText, and answerOptions. The attribute answerOptions is a list that contains answer options. Each answer option has attributes optionId and optionText. As an example, a document received as a response could look as follows:
+{
+"questionId": 1,
+"questionText": "How much is 1+1?",
+"answerOptions": [
+{ "optionId": 1, "optionText": "2" },
+{ "optionId": 2, "optionText": "4" },
+{ "optionId": 3, "optionText": "6" },
+]
+}
+If there are no questions in the database, the returned document is empty, i.e. {}.~~
+POST requests made to the path /api/questions/answer with a JSON document that contains the id of the question and the id of the answer option are processed by the server, verifying whether the response was correct or not. For example, the posted document could look as follows.
+{
+"questionId": 1,
+"optionId": 3,
+}
+The response to the POST request is also a JSON document that has one attribute correct. The value for the attribute is either true or false, depending on whether the submitted answer was correct or not.
+The API must allow cross-origin requests.
+
+
 
 
