@@ -1,7 +1,13 @@
 import * as topicService from "../../services/topicService.js";
 
 
-const getTopics = async({ render, state }) => {
+const getTopics = async({ render, state, response }) => {
+    if (!state.session.get("authenticated")) {
+        response.status = 303;
+        response.redirect(`/auth/login`);
+        return;
+    }
+
     const user = await state.session.get('user');
     console.log(user)
     const isAdmin = user.isAdmin;
@@ -11,6 +17,12 @@ const getTopics = async({ render, state }) => {
 };
 
 const addTopic = async({ request, response, state, render }) => {
+    if (!state.session.get("authenticated")) {
+        response.status = 303;
+        response.redirect(`/auth/login`);
+        return;
+    }
+
     const user = await state.session.get('user');
     const isAdmin = user.isAdmin
     if (user && isAdmin) {
@@ -37,6 +49,12 @@ const addTopic = async({ request, response, state, render }) => {
 };
 
 const deleteTopic = async({ params, response, state }) => {
+    if (!state.session.get("authenticated")) {
+        response.status = 303;
+        response.redirect(`/auth/login`);
+        return;
+    }
+
     const user = await state.session.get('user');
     console.log(user);
     if (user && user.isAdmin) {

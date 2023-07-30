@@ -1,14 +1,14 @@
 <h1>Topic Info</h1>
 <ul>
 <% for(let question of it.questions) { %>
-    <li><a href="/topics/<%= question.id %>"><%= question.question_text %></a> <% if (it.isAdmin) { %> <form method="POST" action="/topics/<%= topic.id %>/delete"><input type="submit" value="Delete"></form> <% } %></li>
+    <li><a href="/topics/<%= it.topic_id %>/questions/<%= question.id %>"><%= question.question_text %></a> <% if (it.isAdmin) { %> <form method="POST" action="/topics/<%= topic.id %>/delete"><input type="submit" value="Delete"></form> <% } %></li>
 <% } %>
 </ul>
 
 <h2>Add New Topic</h2>
 <form method="POST" action="/topics/<%= it.topic_id %>/questions">
     Add a question:<br/>
-    <input type="text" name="question_text" />
+    <input type="text" name="question_text" value="<%= it.newQuestion %>" />
     <input type="submit" value="Submit!" />
 </form>
 <% if (it.errorMessage) { %>

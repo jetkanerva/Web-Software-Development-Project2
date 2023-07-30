@@ -46,17 +46,27 @@ Listing topics
 
 Creating and listing questions for a topic
 
-* GET request to /topics/:id shows a page that has a form for adding a question for the given topic.
-* The form asks for the question text (textarea, name must be question_text). 
-* The form is submitted as a POST request to the path /topics/:id/questions, where :id corresponds to the topic.
-* Upon submitting the form to /topics/:id/questions, the question is added to the database pending validation.
-* For validation, the question_text must contain at least one character. 
-* If validation fails, the page shows validation errors and the entered data is populated to the form field.
-* If the validation does not fail, the question is stored to the database, and the user is redirected to /topics/:id, where :id corresponds to the id of the topic.
-* Note! When adding the question, remember to assign the current user and the current topic to the added question.
-* In addition to showing a form, the page at /topics/:id lists all the questions on the topic. 
-* The list contains question texts which are links to specific question pages. 
-* Clicking on a link moves the user to the path /topics/:id/questions/:qId, where :id refers to the database id of the topic and :qId refers to the database id of the question whose link was clicked.
+* ~~GET request to /topics/:id shows a page that has a form for adding a question for the given topic.~~
+* ~~The form asks for the question text (textarea, name must be question_text).~~ 
+* ~~The form is submitted as a POST request to the path /topics/:id/questions, where :id corresponds to the topic.~~
+* ~~Upon submitting the form to /topics/:id/questions, the question is added to the database pending validation.~~
+* ~~For validation, the question_text must contain at least one character.~~ 
+* ~~If validation fails, the page shows validation errors and the entered data is populated to the form field.~~
+* ~~If the validation does not fail, the question is stored to the database, and the user is redirected to /topics/:id, where :id corresponds to the id of the topic.~~
+* ~~Note! When adding the question, remember to assign the current user and the current topic to the added question.~~
+* ~~In addition to showing a form, the page at /topics/:id lists all the questions on the topic.~~ 
+* ~~The list contains question texts which are links to specific question pages.~~ 
+* ~~Clicking on a link moves the user to the path /topics/:id/questions/:qId, where :id refers to the database id of the topic and :qId refers to the database id of the question whose link was clicked.~~
+
+Viewing a question and adding answer options
+
+* ~~The page at /topics/:id/questions/:qId shows the question text for the question with database id :qId.~~
+* The page at /topics/:id/questions/:qId shows also a form that can be used to add an answer option.
+* The form includes a textarea for option text (textarea name must be option_text) and a checkbox for correctness (input with type checkbox, name must be is_correct).
+* The form is submitted using a POST request to the path /topics/:id/questions/:qId/options, where :id refers to the topic and :qId refers to the question for which the answer option is being added to.
+When an answer option is being added, the content is validated. The option_text must contain at least one character. If validation of the submitted answer option fails, the page shows validation errors and the entered data is populated to the form fields.
+If the validation does not fail, the answer option is stored to the database, and the user is redirected to /topics/:id/questions/:qId. Note! When checking whether a checkbox was selected or not, check whether the particular name (in this case is_correct) is in the request body.
+In addition to the question text and the form for adding answer options, the page at /topics/:id/questions/:qId also lists answer options for the question with database id :qId. For each answer option, option text and correctness of the
 
 
 Main page

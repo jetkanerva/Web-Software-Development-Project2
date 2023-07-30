@@ -1,15 +1,17 @@
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
 import * as authService from "../../services/authService.js";
 
-const showLoginForm = async ({ render}) => {
+const showLoginForm = async ({ render }) => {
     render("login.eta");
 };
 
 const showRegistrationForm = ({ render }) => {
+
     render("register.eta", { email: ""});
 };
 
 const postLoginForm = async ({ request, response, state, render }) => {
+
     const body = request.body();
     const params = await body.value;
 
@@ -47,6 +49,7 @@ const postLoginForm = async ({ request, response, state, render }) => {
 };
 
 const postRegistrationForm = async ({ request, response, render }) => {
+
     const body = request.body();
     const params = await body.value;
 
