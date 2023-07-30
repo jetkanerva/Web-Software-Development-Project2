@@ -1,15 +1,18 @@
-<h1><%= it.question.question_text %></h1>
-<ul>
-<% if (it.quizzes && it.quizzes.length > 0) { %>
-    <% for(let quiz of it.quizzes) { %>
-        <li>
-            <%= quiz.option_text %>
-            <form method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= quiz.id %>/options/<%= quiz.id %>">
-                  <input type="submit" value="Choose">
-            </form>
-        </li>
+<% layout('./layouts/layout.eta') %>
+<div class="flex flex-col items-center justify-center h-screen px-8">
+    <h1 class="text-4xl mb-4 text-blue-500"><%= it.question.question_text %></h1>
+    <ul class="list-decimal list-inside">
+    <% if (it.quizzes && it.quizzes.length > 0) { %>
+        <% for(let quiz of it.quizzes) { %>
+            <li class="border p-4 rounded shadow mb-4">
+                <%= quiz.option_text %>
+                <form class="mt-2" method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= quiz.id %>/options/<%= quiz.id %>">
+                    <input class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors" type="submit" value="Choose">
+                </form>
+            </li>
+        <% } %>
+    <% } else { %>
+        <li class="text-red-500">No Options Yet</li>
     <% } %>
-<% } else { %>
-    <li>No Options Yet</li>
-<% } %>
-</ul>
+    </ul>
+</div>

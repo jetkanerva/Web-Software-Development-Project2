@@ -1,8 +1,9 @@
-<h1>Choose a topic for Quiz</h1>
-<ul>
-    <% for(let topic of it.topics) { %>
-        <li>
-            <a href="/quiz/<%= topic.id %>"><%= topic.name %></a>
-        </li>
-    <% } %>
-</ul>
+<% layout('./layouts/layout.eta') %>
+    <h1 class="text-4xl mb-6">Choose a topic for Quiz</h1>
+    <ul class="grid grid-cols-2 gap-4 flex-grow">
+        <% for(let topic of it.topics) { %>
+            <li class="border p-4 rounded shadow mb-4">
+                <a class="text-blue-500 hover:text-blue-700 transition-colors" href="/quiz/<%= topic.id %>"><%= topic.name %></a>
+            </li>
+        <% } %>
+    </ul>

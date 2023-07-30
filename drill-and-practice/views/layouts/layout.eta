@@ -8,7 +8,7 @@
 <body class="h-full m-0 p-0 flex flex-col">
     <nav class="h-auto">
         <ul>
-            <li><a href="/">Statistics</a></li>
+            <li><a href="/">statistics</a></li>
             <li><a href="/topics">topics</a></li>
             <li><a href="/quiz">quiz</a></li>
         </ul>

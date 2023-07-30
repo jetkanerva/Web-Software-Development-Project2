@@ -82,24 +82,26 @@ const isOptionCorrect = async({ params, state, response }) => {
     }
 };
 
-const showCorrect = async({ render, state, response }) => {
+const showCorrect = async({ render, state, response, params }) => {
     if (!state.session.get("authenticated")) {
         response.status = 303;
         response.redirect(`/auth/login`);
         return;
     }
+    const topic_id = params.tId;
 
-    render('correct.eta');
+    render('correct.eta', {topic_id: topic_id});
 };
 
-const showIncorrect = async({ render, state, response }) => {
+const showIncorrect = async({ render, state, response, params }) => {
     if (!state.session.get("authenticated")) {
         response.status = 303;
         response.redirect(`/auth/login`);
         return;
     }
+    const topic_id = params.tId;
 
-    render('incorrect.eta');
+    render('incorrect.eta', {topic_id: topic_id});
 };
 
 export { getQuizzes, getQuizzesByTopic, getQuizzesByQuestion, isOptionCorrect, showCorrect, showIncorrect };
