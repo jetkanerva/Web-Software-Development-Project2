@@ -35,6 +35,7 @@ router.post("/topics/:tId/questions/:qId/options/:oId/delete", optionController.
 
 // Quizzes
 router.get("/quiz", quizController.getQuizzes)
-router.get("/quiz/:tId", quizController.getQuizzesById)
+router.get("/quiz/:tId", quizController.getQuizzesByTopic)
+router.get("/quiz/:tId/questions/:qId", quizController.getQuizzesByQuestion)
 
 export { router };

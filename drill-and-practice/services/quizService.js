@@ -4,4 +4,8 @@ const getQuizzesByTopic = async (topicId) => {
     return await sql`SELECT * FROM questions WHERE topic_id = ${topicId}`;
 };
 
-export { getQuizzesByTopic }
+const getQuizzesByQuestion = async (questionId) => {
+    return await sql`SELECT * FROM question_answer_options WHERE question_id = ${questionId}`;
+};
+
+export { getQuizzesByTopic, getQuizzesByQuestion }
