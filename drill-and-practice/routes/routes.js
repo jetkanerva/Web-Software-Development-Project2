@@ -28,6 +28,6 @@ router.post("/topics/:id/questions", questionController.addQuestion)
 router.get("/topics/:id/questions/:qId", questionController.getQuestionById)
 
 // Question Answer Options
-router.post("/topics/:id/questions/qId/options", optionController.addOption)
+router.post("/topics/:id/questions/:qId/options", optionController.addOption)
 
 export { router };

@@ -1,7 +1,7 @@
 import { sql } from "../database/database.js";
 
-const addOption = async (topicId, questionId) => {
-    await sql`INSERT INTO topics (name, user_id) VALUES (${name}, ${userId})`;
+const addOption = async (questionId, option_text, is_correct) => {
+    await sql`INSERT INTO question_answer_options (question_id, option_text, is_correct) VALUES (${questionId}, ${option_text}, ${is_correct})`;
 };
 
 const getOptionByQuestionId = async(questionId) => {

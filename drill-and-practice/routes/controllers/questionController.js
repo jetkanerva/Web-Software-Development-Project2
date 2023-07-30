@@ -62,13 +62,15 @@ const getQuestionById = async({params, render, response, state}) => {
         return;
     }
 
+    const topicId = params.id;
     const questionId = params.qId;
     console.log(questionId);
     const question = await questionService.getQuestionById(questionId);
     console.log(question);
     const options = await optionService.getOptionByQuestionId(questionId);
     console.log(options);
-    render('question.eta', { question: question, options: options });
+    const option_text = "";
+    render('question.eta', { question: question, options: options, option_text: option_text, topic_id: topicId });
 };
 
 const getQuizTopics = async({render}) => {
