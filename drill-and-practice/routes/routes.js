@@ -41,4 +41,7 @@ router.post("/quiz/:tId/questions/:qId/options/:oId", quizController.isOptionCor
 router.get("/quiz/:tId/questions/:qId/correct", quizController.showCorrect)
 router.get("/quiz/:tId/questions/:qId/incorrect", quizController.showIncorrect)
 
+// API
+router.get("/api/questions/random", apiController)
+
 export { router };

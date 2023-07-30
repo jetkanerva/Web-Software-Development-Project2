@@ -1,3 +1,19 @@
-<% layout("./layouts/layout.eta") %>
+<head>
+    <title>Project2 - Quiz service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-2">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bold mb-4 text-center">Project2 Quiz Application</h1>
 
-<h1>Hello world!</h1>
+        <h2 class="text-2xl font-semibold mb-2 text-center">Application Statistics</h2>
+        <p class="mb-1 text-center">Total number of topics: <span class="font-semibold"><%= it.topicCount %></span></p>
+        <p class="mb-1 text-center">Total number of questions: <span class="font-semibold"><%= it.questionCount %></span></p>
+        <p class="mb-4 text-center">Total number of answers: <span class="font-semibold"><%= it.answerCount %></span></p>
+
+        <div class="flex justify-center space-x-4">
+            <a href="/auth/register" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Register</a>
+            <a href="/auth/login" class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Login</a>
+        </div>
+    </div>
+</div>

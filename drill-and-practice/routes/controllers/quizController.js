@@ -69,8 +69,9 @@ const isOptionCorrect = async({ params, state, response }) => {
     const topicId = params.tId;
     const questionId = params.qId
     const optionId = params.oId;
+    const userId = await state.session.get('user').id;
 
-    const isCorrect = await quizService.isOptionCorrect(optionId);
+    const isCorrect = await quizService.isOptionCorrect(optionId, questionId, userId);
     console.log(isCorrect);
 
     if (isCorrect) {
@@ -100,8 +101,11 @@ const showIncorrect = async({ render, state, response, params }) => {
         return;
     }
     const topic_id = params.tId;
+    const questionId = params.qId;
+    const correct_answer = await quizService.correctAnswer(questionId);
+    console.log(correct_answer);
 
-    render('incorrect.eta', {topic_id: topic_id});
+    render('incorrect.eta', {topic_id: topic_id, correct_answer: correct_answer});
 };
 
 export { getQuizzes, getQuizzesByTopic, getQuizzesByQuestion, isOptionCorrect, showCorrect, showIncorrect };

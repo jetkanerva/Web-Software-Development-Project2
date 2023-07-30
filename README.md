@@ -90,8 +90,7 @@ Asking questions
 * ~~Each item in the list is a link, which links the user to /quiz/:tId, where :tId corresponds to the database id of the topic that the user selected.~~
 * ~~When accessing /quiz/:tId, a random question for the topic identified with tId is chosen from the database, and the user is redirected to /quiz/:tId/questions/:qId,~~
 * ~~where :qId refers to the database id of the randomly chosen question. The random question is chosen from all questions for the topic.~~
-* If there are no questions for the topic, the user is informed that there are no questions so far for the topic.
-
+* ~~If there are no questions for the topic, the user is informed that there are no questions so far for the topic.~~
 * ~~When making a GET request to the path at /quiz/:tId/questions/:qId, where :qId refers to the database id of a specific question, the user is shown the question text and the answer options.~~
 * ~~Each answer option has a button with text "Choose". Clicking on the button makes a POST request to the path /quiz/:tId/questions/:qId/options/:oId,~~
 * ~~where :qId is the database identifier of the question and :oId is the id of the selected answer option.~~

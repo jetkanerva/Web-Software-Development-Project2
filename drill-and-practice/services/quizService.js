@@ -8,9 +8,15 @@ const getQuizzesByQuestion = async (questionId) => {
     return await sql`SELECT * FROM question_answer_options WHERE question_id = ${questionId}`;
 };
 
-const isOptionCorrect = async (optionId) => {
+const isOptionCorrect = async (optionId, questionId, userId) => {
+    await sql`INSERT INTO question_answers (user_id, question_id, question_answer_option_id)
+                   VALUES (${userId}, ${questionId}, ${optionId})`;
     const option = await sql`SELECT is_correct FROM question_answer_options WHERE id = ${optionId}`;
     return option[0].is_correct;
 };
 
-export { getQuizzesByTopic, getQuizzesByQuestion, isOptionCorrect }
+const correctAnswer = async (questionId) => {
+    return await sql`SELECT * FROM question_answer_options WHERE question_id = ${questionId} AND is_correct = true`;
+}
+
+export { getQuizzesByTopic, getQuizzesByQuestion, isOptionCorrect, correctAnswer }

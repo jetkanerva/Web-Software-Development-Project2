@@ -2,7 +2,7 @@
 <div class="px-8 pt-8 flex flex-col h-full">
     <h1 class="text-4xl mb-6"><%= it.question.question_text %></h1>
     <h2 class="text-3xl mb-4">Answer Options</h2>
-    <ul class="grid grid-cols-2 gap-4 flex-grow">
+    <ul class="flex flex-col space-y-4">
     <% if (it.options && it.options.length > 0) { %>
         <% for(let option of it.options) { %>
             <li class="border p-4 rounded shadow mb-4">
