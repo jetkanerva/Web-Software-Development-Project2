@@ -3,7 +3,7 @@ import * as topicService from "../../services/topicService.js";
 
 const getTopics = async({ render, state, response }) => {
     if (!state.session.get("authenticated")) {
-        response.status = 303;
+        response.status = 302;
         response.redirect(`/auth/login`);
         return;
     }
@@ -18,7 +18,7 @@ const getTopics = async({ render, state, response }) => {
 
 const addTopic = async({ request, response, state, render }) => {
     if (!state.session.get("authenticated")) {
-        response.status = 303;
+        response.status = 302;
         response.redirect(`/auth/login`);
         return;
     }
@@ -40,17 +40,17 @@ const addTopic = async({ request, response, state, render }) => {
 
         await topicService.createTopic(name, user.id);
 
-        response.status = 303;
+        response.status = 302;
         response.redirect('/topics');
     } else {
-        response.status = 303;
+        response.status = 302;
         response.redirect('/topics');
     }
 };
 
 const deleteTopic = async({ params, response, state }) => {
     if (!state.session.get("authenticated")) {
-        response.status = 303;
+        response.status = 302;
         response.redirect(`/auth/login`);
         return;
     }
@@ -59,10 +59,10 @@ const deleteTopic = async({ params, response, state }) => {
     console.log(user);
     if (user && user.isAdmin) {
         await topicService.deleteTopic(params.id);
-        response.status = 303;
+        response.status = 302;
         response.redirect('/topics');
     } else {
-        response.status = 303;
+        response.status = 302;
         response.redirect('/topics');
     }
 };

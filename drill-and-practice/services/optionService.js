@@ -9,8 +9,8 @@ const getOptionByQuestionId = async(questionId) => {
 }
 
 const deleteOption = async(optionId) => {
-    await sql`DELETE FROM question_answer_options WHERE id = ${optionId}`;
     await sql`DELETE FROM question_answers WHERE question_answer_option_id = ${optionId}`;
+    await sql`DELETE FROM question_answer_options WHERE id = ${optionId}`;
 }
 
 export { addOption, getOptionByQuestionId, deleteOption };

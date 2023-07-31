@@ -6,13 +6,13 @@ const addOption= async({ params, state, response, request, render }) => {
     console.log("addOption");
 
     if (!state.session.get("authenticated")) {
-        response.status = 303;
+        response.status = 302;
         response.redirect(`/auth/login`);
         return;
     }
-    const topicId = params.id;
+    const topic_id = params.id;
     const questionId = params.qId;
-    console.log(topicId);
+    console.log(topic_id);
     console.log(questionId);
 
     const body = request.body();
@@ -26,7 +26,7 @@ const addOption= async({ params, state, response, request, render }) => {
         const options = await optionService.getOptionByQuestionId(questionId);
         console.log(options);
         const errorMessage = "Option must be at least 1 character long";
-        render('question.eta', { question: question, options: options, option_text: optionText, topic_id: topicId, errorMessage: errorMessage });
+        render('question.eta', { question: question, options: options, option_text: optionText, topic_id: topic_id, errorMessage: errorMessage });
     }
 
     let is_correct = data.get("is_correct");
@@ -34,18 +34,18 @@ const addOption= async({ params, state, response, request, render }) => {
     console.log(is_correct);
 
     await optionService.addOption(questionId, optionText, is_correct);
-    response.redirect(`/topics/${topicId}/questions/${questionId}`);
+    response.redirect(`/topics/${topic_id}/questions/${questionId}`);
 };
 
-const deleteOption = async({ params, state, response, request, render }) => {
+const deleteOption = async({ params, state, response }) => {
     console.log("deleteOption");
 
     if (!state.session.get("authenticated")) {
-        response.status = 303;
+        response.status = 302;
         response.redirect(`/auth/login`);
         return;
     }
-    const topicId = params.tid;
+    const topicId = params.tId;
     const questionId = params.qId;
     const optionId = params.oId
     console.log(topicId);
@@ -54,7 +54,7 @@ const deleteOption = async({ params, state, response, request, render }) => {
 
     await optionService.deleteOption(optionId);
 
-    response.status = 303;
+    response.status = 302;
     response.redirect(`/topics/${topicId}/questions/${questionId}`);
 };
 

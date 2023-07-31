@@ -9,8 +9,12 @@ const getQuizzesByQuestion = async (questionId) => {
 };
 
 const isOptionCorrect = async (optionId, questionId, userId) => {
-    await sql`INSERT INTO question_answers (user_id, question_id, question_answer_option_id)
+    try {
+        await sql`INSERT INTO question_answers (user_id, question_id, question_answer_option_id)
                    VALUES (${userId}, ${questionId}, ${optionId})`;
+    } catch {
+        console.log("answer likely already exits")
+    }
     const option = await sql`SELECT is_correct FROM question_answer_options WHERE id = ${optionId}`;
     return option[0].is_correct;
 };

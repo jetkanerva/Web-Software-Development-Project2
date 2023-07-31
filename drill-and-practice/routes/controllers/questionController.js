@@ -4,7 +4,7 @@ import * as optionService from "../../services/optionService.js"
 const getTopicById = async({ params, render, state, response }) => {
 
     if (!state.session.get("authenticated")) {
-        response.status = 303;
+        response.status = 302;
         response.redirect(`/auth/login`);
         return;
         }
@@ -16,9 +16,9 @@ const getTopicById = async({ params, render, state, response }) => {
     render('questions.eta', { questions: questions, topic_id: topic_id, newQuestion: newQuestion });
 };
 
-const addQuestion = async({params, request, response, state, render}) => {
+const addQuestion = async({ params, request, response, state, render }) => {
     if (!state.session.get("authenticated")) {
-        response.status = 303;
+        response.status = 302;
         response.redirect(`/auth/login`);
         return;
     }
@@ -29,7 +29,7 @@ const addQuestion = async({params, request, response, state, render}) => {
     try {
         user_id = user.id;
     } catch {
-        response.status = 303;
+        response.status = 302;
         response.redirect(`/auth/login`);
         return;
     }
@@ -50,19 +50,19 @@ const addQuestion = async({params, request, response, state, render}) => {
     console.log(question_text);
     await questionService.addQuestion(user_id, topic_id, question_text);
 
-    response.status = 303;
+    response.status = 302;
     response.redirect(`/topics/${topic_id}`);
 
 };
 
 const getQuestionById = async({params, render, response, state}) => {
     if (!state.session.get("authenticated")) {
-        response.status = 303;
+        response.status = 302;
         response.redirect(`/auth/login`);
         return;
     }
 
-    const topicId = params.id;
+    const topic_id = params.id;
     const questionId = params.qId;
     console.log(questionId);
     const question = await questionService.getQuestionById(questionId);
@@ -70,13 +70,15 @@ const getQuestionById = async({params, render, response, state}) => {
     const options = await optionService.getOptionByQuestionId(questionId);
     console.log(options);
     const option_text = "";
-    render('question.eta', { question: question, options: options, option_text: option_text, topic_id: topicId });
+    render('question.eta', { question: question, options: options, option_text: option_text, topic_id: topic_id });
 };
 
 const deleteQuestionById = async({ response, params }) => {
+    console.log(params.qId)
+    console.log(params.tId)
     await questionService.deleteQuestionById(params.qId);
 
-    response.status = 303;
+    response.status = 302;
     response.redirect(`/topics/${params.tId}`);
 };
 

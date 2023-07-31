@@ -6,7 +6,7 @@
         <% for(let quiz of it.quizzes) { %>
             <li class="border p-4 rounded shadow mb-4">
                 <%= quiz.option_text %>
-                <form class="mt-2" method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= quiz.id %>/options/<%= quiz.id %>">
+                <form class="mt-2" method="POST" action="/quiz/<%= it.question.topic_id %>/questions/<%= it.question.id %>/options/<%= quiz.id %>">
                     <input class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors" type="submit" value="Choose">
                 </form>
             </li>
