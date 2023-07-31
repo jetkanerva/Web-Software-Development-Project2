@@ -1,3 +1,4 @@
+<% layout('./layouts/layout.eta') %>
 <h1 class="text-4xl mb-4 text-red-500">Incorrect!</h1>
 <p class="text-lg mb-4">The correct option was: "<%= it.correct_answer %>".</p>
 <a class="text-blue-500 hover:text-blue-700 mt-4" href="/quiz/<%= it.topic_id %>">Next question</a>
