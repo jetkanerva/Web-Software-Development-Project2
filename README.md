@@ -1,5 +1,7 @@
 # Project 2:
 
+## This was made as part of Aalto Web Software development course
+
 #### Deployment online
 
 This application has been deployed online at domain: https://project2-4u5l.onrender.com
